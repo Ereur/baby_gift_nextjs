@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import supabase from "../../utils/supabaseClient";
+// import { useRouter } from "next/navigation";
+// import supabase from "../../utils/supabaseClient";
 import axiosInstance from "@/utils/axiosInstance";
 import useUserStore from "../../store/useUserStore";
 import { toast, Bounce } from "react-toastify";
@@ -32,6 +32,7 @@ interface ProductCardProps {
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
+// import { User } from "@supabase/supabase-js";
 
 interface ProdcutModalProps {
   isOpen: boolean;
@@ -231,7 +232,7 @@ const ProductModal: React.FC<ProdcutModalProps> = ({
 
 const ProductCard: React.FC<ProductCardProps> = ({
   title,
-  iconSrc,
+  // iconSrc,
   productImgSrc,
   onDelete,
   CategoriId,
@@ -290,6 +291,10 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ isOpen, onClose }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const user = useUserStore((state) => state.user);
 
+  useEffect(() => {
+    console.log("user from", user);
+  }, [user]);
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     setCategoryImage(file);
@@ -313,11 +318,11 @@ const CategoryModal: React.FC<CategoryModalProps> = ({ isOpen, onClose }) => {
       setError("Please select an image.");
       return;
     }
-
+    console.log("user cat", user);
     const formData = new FormData();
     formData.append("name", categoryName);
     formData.append("categorie_image", categoryImage);
-    formData.append("userId", user.id);
+    formData.append("userId", user.sub);
 
     try {
       setLoading(true);
@@ -471,7 +476,8 @@ const UserPanel: React.FC = () => {
     document.cookie = `${"access_token"}=${accessToken};  path=/; Secure; SameSite=Strict`;
 
     const userData = session.user;
-    setUser(userData);
+    // console.log("userData", );
+    setUser(userData.identities[0].identity_data);
   }, []);
 
   return (

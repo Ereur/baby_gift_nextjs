@@ -5,10 +5,10 @@ import {extractAndSetSession} from '@/utils/auth'
 import {readFileAsBase64,normalizeString} from '@/utils/helpers'
 import supabase from '@/utils/supabaseClient';
 
-export async function GET(request: Request)
-{
+// export async function GET(request: Request)
+// {
     
-}
+// }
 
 export async function POST(request: Request)
 {
@@ -79,7 +79,7 @@ export async function POST(request: Request)
     //
 }
 
-export async function DELETE(request: Request)
-{
+// export async function DELETE(request: Request)
+// {
 
-}
+// }

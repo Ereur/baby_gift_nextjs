@@ -1,8 +1,8 @@
 // app/api/categories/route.js
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-import { promises as fs } from 'fs';
+// import { createClient } from '@supabase/supabase-js';
+// import { promises as fs } from 'fs';
 import { extractAndSetSession } from '@/utils/auth';
 import {normalizeString,readFileAsBase64} from '@/utils/helpers';
 // import path from 'path';
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
 
   try {
       // Extract and set session
-      const { error:SessionEr, status, session:Session } = await extractAndSetSession(request);
+      const { error:SessionEr, status} = await extractAndSetSession(request);
       if (SessionEr) {
         return NextResponse.json({ SessionEr }, { status });
       }
@@ -93,6 +93,7 @@ export async function POST(request: Request) {
   .getPublicUrl(imageResponse.data.path)
 
     // Insert category
+    console.log('userID', userId);
     const { data, error } = await supabase
       .from('categories')
       .insert({
@@ -103,7 +104,8 @@ export async function POST(request: Request) {
       .select();  // Make sure you use select() to get the inserted row back
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: error.code as unknown as number });
+      console.error('Error inserting category:', error);
+      return NextResponse.json({ error: error.message }, { status: 404 });
     }
 
     return NextResponse.json(data, { status: 201 });
@@ -151,7 +153,7 @@ console.log('categorie_Id', categorie_Id);
     }
 
     // Set the session token
-    const { data: session, error: sessionError } = await supabase.auth.setSession({
+    const { error: sessionError } = await supabase.auth.setSession({
       access_token: accessToken,
       refresh_token: refreshToken,
     });

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 // import { useNavigate } from "react-router-dom";
@@ -7,14 +7,22 @@ import supabase from "../../utils/supabaseClient";
 import { useRouter } from "next/navigation";
 import illustration from "./illustration.png";
 import Image from "next/image";
+import { FormikHelpers } from "formik";
+
+export interface LoginFormValues {
+  email: string;
+  password: string;
+  // submit?: string;
+}
 
 // Tailwind CSS classes based on your design
 const Login: React.FC = () => {
   const router = useRouter();
+  const [errors, setErrors] = useState<string | null>(null);
 
   const handleSubmit = async (
-    values: any,
-    { setSubmitting, setErrors }: any
+    values: LoginFormValues,
+    { setSubmitting }: FormikHelpers<LoginFormValues>
   ) => {
     const { email, password } = values;
 
@@ -24,7 +32,7 @@ const Login: React.FC = () => {
     });
 
     if (error) {
-      setErrors({ submit: error.message });
+      setErrors(error.message);
     } else {
       router.push("/categories");
       // navigate("/UserPanel"); // Navigate to the dashboard or another protected route
@@ -55,14 +63,14 @@ const Login: React.FC = () => {
           </p>
 
           <Formik
-            initialValues={{ email: "", password: "", submit: null }}
+            initialValues={{ email: "", password: "" }}
             validationSchema={Yup.object({
               email: Yup.string().email("Email invalide").required("Requis"),
               password: Yup.string().required("Requis"),
             })}
             onSubmit={handleSubmit}
           >
-            {({ isSubmitting, errors }) => (
+            {({ isSubmitting }) => (
               <Form>
                 <div className="mb-4">
                   <label htmlFor="email" className="block text-gray-600 mb-2">
@@ -120,10 +128,8 @@ const Login: React.FC = () => {
                     />
                   </div>
                 </div>
-                {errors.submit && (
-                  <div className="text-red-600 text-sm mb-4">
-                    {errors.submit}
-                  </div>
+                {errors && (
+                  <div className="text-red-600 text-sm mb-4">{errors}</div>
                 )}
                 <button
                   type="submit"
@@ -145,7 +151,7 @@ const Login: React.FC = () => {
             </p>
           </div>
           <div className="flex mt-6 text-center gap-2 ">
-            <span>Vous n'avez pas de compte ?</span>
+            <span>Vous n&apos;avez pas de compte ?</span>
             <p
               onClick={() => router.push("/signup")}
               className="cursor-pointer text-primary hover:text-accentBlue"
