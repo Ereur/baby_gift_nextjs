@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import "react-toastify/dist/ReactToastify.css";
+// import { usePathname } from "next/navigation";
+import { ToastContainer } from "react-toastify";
+import RootlayoutWrapper from "./components/RootlayoutWrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,12 +29,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // const pathname = usePathname();
+
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={` antialiased flex  h-full bg-[#FFF2EE] `}>
+        <ToastContainer />
+        <RootlayoutWrapper />
+        <div className="h-full w-full">{children}</div>
       </body>
     </html>
   );
