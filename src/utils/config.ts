@@ -24,11 +24,11 @@ const env = process.env.ENV;
 
 const getConfig = () => {
 
-  console.log("env", env);
-  if (env === 'production') {
+  console.log("envirement", env);
+  if (env == 'production') {
     return "https://baby-gift-nextjs.vercel.app/";
   }
-  return "http://localhost:3000/";
+  return "https://baby-gift-nextjs.vercel.app/";
 };
 
 export default getConfig;
