@@ -33,7 +33,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={` antialiased flex  h-full bg-[#FFF2EE] `}>
+      <body className={` antialiased flex  h-full bg-[#FBF4EB] `}>
         <ToastContainer />
         <RootlayoutWrapper />
         <div className="h-full w-full">{children}</div>

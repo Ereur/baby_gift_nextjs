@@ -40,7 +40,7 @@ const Sidebar: React.FC = () => {
       <nav className="space-y-6">
         <SidebarLink text="Categories" href="/categories" />
         <SidebarLink text="Reservations" href="/reservations" />
-        <SidebarLink text="Ko links" href="/ko-links" />
+        <SidebarLink text="Ko links" href="/kolinks" />
         <SidebarLink text="Questions" href="/questions" />
         {/* <SidebarLink text="Products" href="/products" /> */}
       </nav>

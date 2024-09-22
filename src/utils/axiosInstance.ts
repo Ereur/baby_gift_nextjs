@@ -1,9 +1,12 @@
 // utils/axiosInstance.ts
 
 import axios from 'axios';
+import getConfig from './config';
+
+const baseURL = getConfig()
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000', // Replace with your API base URL
+  baseURL: baseURL, // Replace with your API base URL
 });
 
 // axiosInstance.interceptors.request.use(

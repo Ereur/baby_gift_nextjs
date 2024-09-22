@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 // import supabase from "../../utils/supabaseClient";
 import axiosInstance from "@/utils/axiosInstance";
 import useUserStore from "../../store/useUserStore";
@@ -32,6 +32,7 @@ interface ProductCardProps {
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
+// import { redirect } from "next/dist/server/api-utils";
 // import { User } from "@supabase/supabase-js";
 
 interface ProdcutModalProps {
@@ -434,6 +435,7 @@ const UserPanel: React.FC = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const setUser = useUserStore((state) => state.setUser);
+  const route = useRouter();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -469,15 +471,20 @@ const UserPanel: React.FC = () => {
     const session = JSON.parse(
       localStorage.getItem("sb-tyovdghdcocaopwvmibm-auth-token") || "{}"
     );
+    if (!session) {
+      route.replace("/login");
+      return;
+    }
     const accessToken = session.access_token;
     const refreshToken = session.refresh_token;
+
     console.log("refreshToken", refreshToken);
     document.cookie = `${"refresh_token"}=${refreshToken};  path=/; Secure; SameSite=Strict`;
     document.cookie = `${"access_token"}=${accessToken};  path=/; Secure; SameSite=Strict`;
 
     const userData = session.user;
     // console.log("userData", );
-    setUser(userData.identities[0].identity_data);
+    setUser(userData?.identities[0].identity_data);
   }, []);
 
   return (

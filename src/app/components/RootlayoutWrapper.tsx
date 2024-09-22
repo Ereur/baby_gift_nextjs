@@ -8,7 +8,13 @@ import Sidebar from "@/app/components/Sidebar";
 const RootlayoutWrapper: React.FC = () => {
   const pathname = usePathname();
 
-  if (pathname == "/login") {
+  const adminroutes = [
+    "/categories",
+    "/reservations",
+    "/kolinks",
+    "/questions",
+  ];
+  if (!adminroutes.includes(pathname)) {
     return <></>;
   }
   console.log("PathName", pathname);

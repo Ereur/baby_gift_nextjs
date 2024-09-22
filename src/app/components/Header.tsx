@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import supabase from "@/utils/supabaseClient";
 import { useRouter } from "next/navigation";
-
+// import Button from "@/app/components/Button";
 const Header: React.FC = () => {
   const [user, setUser] = useState<string | null>(null);
   const router = useRouter();
@@ -26,11 +26,19 @@ const Header: React.FC = () => {
   //   }
   return (
     <div className="absolute  w-5/6 flex justify-between right-0 p-4   h-[70px] bg-[#FFF2EE]">
-      <input
+      {/* <input
         type="text"
         placeholder="Search for Product"
         className="w-1/5 p-2 border border-gray-300 rounded-lg"
-      />
+      /> */}
+      <button
+        className="flex px-6 py-4 bg-[#FF9689] text-white rounded-full font-bold items-center justify-center "
+        onClick={() => {
+          router.push("/Anas");
+        }}
+      >
+        Aperçu en direct
+      </button>
       <div className="flex items-center space-x-4">
         <span className="text-ms font-bold text-accentOrange">{user}</span>
         <img
