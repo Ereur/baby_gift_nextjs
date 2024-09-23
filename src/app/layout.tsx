@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-// import localFont from "next/font/local";
+import localFont from "next/font/local";
 import "./globals.css";
 // import Sidebar from "./components/Sidebar";
 // import Header from "./components/Header";
@@ -8,11 +8,17 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import RootlayoutWrapper from "./components/RootlayoutWrapper";
 
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+});
+
+const Chelsea = localFont({
+  src: "./fonts/ChelseaMarket-Regular.woff",
+  variable: "--font-chelsea",
+  weight: "100 900",
+});
 // const geistMono = localFont({
 //   src: "./fonts/GeistMonoVF.woff",
 //   variable: "--font-geist-mono",
@@ -33,7 +39,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={` antialiased flex  h-full bg-[#FBF4EB] `}>
+      <body
+        className={` antialiased flex  h-full bg-[#FBF4EB]  ${geistSans.variable} ${Chelsea.variable} `}
+      >
         <ToastContainer />
         <RootlayoutWrapper />
         <div className="h-full w-full">{children}</div>

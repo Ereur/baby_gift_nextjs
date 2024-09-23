@@ -17,7 +17,9 @@ const config: Config = {
   			textPrimary: '#FF6F61'
   		},
   		fontFamily: {
-  			sans: ['Poppins', 'Comic Sans', 'sans-serif']
+  			sans: ['Poppins', 'Comic Sans', 'sans-serif'],
+			geistvf: ['var(--font-geist-sans)'],
+			Chelsea:['var(--font-chelsea)']
   		},
   		borderRadius: {
   			large: '30px',

@@ -1,16 +1,17 @@
 "use client";
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axiosInstance from "axios";
 import { Category } from "@/app/[gifts_website]/types";
 import Button from "@/app/[gifts_website]/components/Button";
-import QuestionModal from "./QuestionModal";
+// import QuestionModal from "./QuestionModal";
+// import Link from "next/link";
 
 export default function Navbar() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [categories_name, setCategoriesName] = useState<string[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  // const [isOpen, setIsOpen] = useState(false);
+  // const openModal = () => setIsOpen(true);
+  // const closeModal = () => setIsOpen(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -47,8 +48,8 @@ export default function Navbar() {
           </div>
         ))}
       </div>
-      <Button onClick={openModal}>Question?</Button>
-      <QuestionModal isOpen={isOpen} onClose={closeModal} />
+      <Button>Question ?</Button>
+      {/* <QuestionModal isOpen={isOpen} onClose={closeModal} /> */}
     </>
   );
 }
